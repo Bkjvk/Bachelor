@@ -24,7 +24,7 @@ Mat integralImage(Mat image) {
 			ii.at<Vec3i>(y, x).val[1] = ((x - 1 < 0) ? 0 : ii.at<Vec3i>(y, x - 1).val[1]) + s.at<Vec3i>(y, x).val[1];
 			ii.at<Vec3i>(y, x).val[2] = ((x - 1 < 0) ? 0 : ii.at<Vec3i>(y, x - 1).val[2]) + s.at<Vec3i>(y, x).val[2];
 			*/
-			cout << "(" << ii.at<Vec3i>(y, x).val[0] << ", " << ii.at<Vec3i>(y, x).val[1] << ", " << ii.at<Vec3i>(y, x).val[2] << ") ";
+			cout << "(" << ii.at<int>(y, x) << ", " << ii.at<int>(y, x) << ", " << ii.at<int>(y, x) << ") ";
 			//cout << (int)image.at<Vec3b>(y, x)[0] << " " << (int)image.at<Vec3b>(y, x)[1] << " " << (int)image.at<Vec3b>(y, x)[2] << "; ";
 		}
 		cout << endl;
