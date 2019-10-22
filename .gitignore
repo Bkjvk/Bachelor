@@ -84,6 +84,8 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.vcxproj
+*.vcxproj.filters
 
 # Chutzpah Test files
 _Chutzpah*
@@ -328,3 +330,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+Images/ToPositive/*
+Images/ToNegative/*
