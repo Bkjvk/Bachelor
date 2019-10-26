@@ -15,24 +15,36 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CreateSample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\detect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Setuper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CreateSample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="helper\helper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Constants.h">
+    <ClInclude Include="src\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CreateSamples.h">
+    <ClInclude Include="src\detect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="helper\helper.h">
+    <ClInclude Include="src\helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Setuper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CreateSample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

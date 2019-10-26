@@ -4,9 +4,9 @@
 #include <string>
 #include <cstdlib>
 
-#include "CreateSamples.h"
+#include "CreateSample.h"
 #include "Constants.h"
-#include "helper/helper.h"
+#include "helper.h"
 
 using namespace std;
 namespace fs = std::experimental::filesystem;
@@ -46,13 +46,24 @@ void CreateSamples()
 		string height;
 		int nsamples;
 		cout << "Insert width for your samples: ";
-		cin >> width;
+		//cin >> width;
 		cout << "Inster height for your samples: ";
-		cin >> height;
+		//cin >> height;
 		//cout << "How many probes you want?: ";
 		//cin >> nsamples;
-		string command = SAMPLE_TOOL + string(" -vec train.vec -info banana.info -num 30 -w ") + width + string(" -h ") + height;
+		//string command = SAMPLE_TOOL + string(" -vec train.vec -info banana.info -num 40 -w ") + width + string(" -h ") + height;
+		string command = SAMPLE_TOOL + string(" -vec train.vec -info banana.info -num 50 -w 36 -h 24");
 		cout << command << endl;
+		system(command.c_str());
+	}
+}
+
+void TrainClassifier()
+{
+	string question = "Train Cascade Classifier";
+	if (askUserForAcceptance(question))
+	{
+		string command = TRAIN_TOOL + string(" -data ") + PATH_TO_RESULT_FILES + string(" -vec train.vec -bg bg.info -numPos 50 -numNeg 100 -w 36 -h 24 -numStages 1");
 		system(command.c_str());
 	}
 }

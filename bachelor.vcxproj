@@ -19,14 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CreateSample.cpp" />
-    <ClCompile Include="helper\helper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\CreateSample.cpp" />
+    <ClCompile Include="src\detect.cpp" />
+    <ClCompile Include="src\helper.cpp" />
+    <ClCompile Include="src\Setuper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="CreateSamples.h" />
-    <ClInclude Include="helper\helper.h" />
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\CreateSample.h" />
+    <ClInclude Include="src\detect.h" />
+    <ClInclude Include="src\helper.h" />
+    <ClInclude Include="src\Setuper.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -127,7 +131,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\OpenCV\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world346.lib;opencv_world346d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world346d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

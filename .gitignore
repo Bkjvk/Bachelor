@@ -333,3 +333,5 @@ ASALocalRun/
 
 Images/ToPositive/*
 Images/ToNegative/*
+Images/TestResult/*
+Images/Feed/*

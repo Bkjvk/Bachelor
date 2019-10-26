@@ -5,5 +5,6 @@
 
 bool parseAnswer(char);
 bool askUserForAcceptance(std::string);
+int parseKey(std::string key);
 
 #endif

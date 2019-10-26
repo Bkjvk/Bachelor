@@ -4,4 +4,6 @@
 
 void CreateInfoFiles();
 void CreateSamples();
+void TrainClassifier();
+
 #endif
