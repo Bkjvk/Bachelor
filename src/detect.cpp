@@ -6,15 +6,16 @@
 
 #include "Constants.h"
 #include "detect.h"
+#include "Setuper.h"
 
 using namespace std;
 using namespace cv;
 namespace fs = std::experimental::filesystem;
 
-void detectAndSave(string pathToPicture, string nameOfClassifier, string resultId)
+void detectAndSave(string pathToPicture, Setuper* s, string resultId)
 {
 	CascadeClassifier cascadeClassifier;
-	if (!cascadeClassifier.load(nameOfClassifier))
+	if (!cascadeClassifier.load(s->generateClassifierPath() + "/cascade.xml"))
 	{
 		cout << "[ERROR]\tFailed to load classifier!\n";
 		exit(-1);
@@ -40,16 +41,17 @@ void detectAndSave(string pathToPicture, string nameOfClassifier, string resultI
 		Point lowerRowCorner(object[i].x + object[i].width - 20, object[i].y + object[i].height - 20);
 		rectangle(image, upperLeftCorner, lowerRowCorner,(255, 0, 255), 2);
 	}
-	cout << "saving " << PATH_TO_TEST_RESULT << "/result" << resultId << string(".jpg") << endl;
-	imwrite(PATH_TO_TEST_RESULT + string("/result") + resultId + string(".jpg") , image);
+	string toSave = s->generateResultPath() + "/result" + resultId + string(".jpg");
+	s->log("saving " + toSave + "\n");
+	imwrite(toSave , image);
 }
 
-void TestCampaign(string pathToClassifier)
+void TestCampaign(Setuper* s)
 {
 	int counter = 0;
 	fs::path Path(PATH_TO_TEST_SAMPLES);
 	for (const auto& entry : fs::directory_iterator(Path))
 	{
-		detectAndSave(Path.string() + ("\\") + entry.path().filename().string(), pathToClassifier, to_string(counter++));
+		detectAndSave(Path.string() + ("\\") + entry.path().filename().string(), s ,to_string(counter++));
 	}
 }

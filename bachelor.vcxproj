@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\CreateSample.cpp" />
     <ClCompile Include="src\detect.cpp" />
     <ClCompile Include="src\helper.cpp" />
@@ -27,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Controller.h" />
     <ClInclude Include="src\CreateSample.h" />
     <ClInclude Include="src\detect.h" />
     <ClInclude Include="src\helper.h" />

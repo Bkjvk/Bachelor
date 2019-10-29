@@ -12,6 +12,7 @@ namespace fs = std::experimental::filesystem;
 
 Setuper::Setuper()
 {
+	openLog();
 	useSetup = false;
 	setupName = "";
 	posInfoFileName = "";
@@ -23,6 +24,7 @@ Setuper::Setuper()
 	negProbes = 0;
 	stages = 0;
 }
+
 Setuper::Setuper(bool _useSetup, string _setupName, string _posInfoFileName, string _negInfoFileName, string _classifier, unsigned int _width, unsigned int _height, unsigned int _posProbes, unsigned int _negProbes, unsigned int _stages)
 {
 	useSetup = _useSetup;
@@ -42,9 +44,10 @@ void Setuper::readNewSetuperParams(string fileName)
 	fstream file;
 	string read;
 	bool test[10] = { false, false, false, false, false, false, false, false, false, false };
-	file.open(fileName, fstream::in);
+	file.open(string(PATH_TO_TEST_PLANS) + "/" + fileName, fstream::in);
 	if (file.good())
 	{
+		log("print setup: ");
 		while (file >> read)
 		{
 			//skip comments
@@ -65,71 +68,80 @@ void Setuper::readNewSetuperParams(string fileName)
 			}
 			//parse value
 			string key = read.substr(0, equal);
-			cout << "print setup: \n";
-			/*
 			switch (parseKey(key)) 
 			{
 				case USESETUP:
-					test[USESETUP] = 0;
+					test[USESETUP] = 1;
 					useSetup = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Use Setup:\t\t" + to_string(useSetup));
 					break;
 				case SETUPNAME:
-					test[SETUPNAME] = 0;
+					test[SETUPNAME] = 1;
 					setupName = read.substr(++equal);
-					cout << "Setup Name:\t" << useSetup << endl;
+					createSetupDirectories();
+					log("Setup Name:\t\t" + setupName);
 					break;
 				case POSINFOFILENAME:
-					test[POSINFOFILENAME] = 0;
-					posInfoFileName = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					test[POSINFOFILENAME] = 1;
+					posInfoFileName = read.substr(++equal) + ".info";
+					log("Pos info file name:\t" + posInfoFileName);
 					break;
 				case NEGINFOFILENAME:
-					test[NEGINFOFILENAME] = 0;
-					negInfoFileName = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					test[NEGINFOFILENAME] = 1;
+					negInfoFileName = read.substr(++equal) + ".info";
+					log("Neg info file name:\t" + negInfoFileName);
 					break;
 				case CLASSIFIER:
-					test[CLASSIFIER] = 0;
-					classifier = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					test[CLASSIFIER] = 1;
+					classifier = read.substr(++equal);
+					log("Classifier:\t\t" + classifier);
 					break;
 				case WIDTH:
-					test[WIDTH] = 0;
+					test[WIDTH] = 1;
 					width = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Width:\t\t\t" + to_string(width));
 					break;
 				case HEIGHT:
-					test[HEIGHT] = 0;
+					test[HEIGHT] = 1;
 					height = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Height:\t\t\t" + to_string(height));
 					break;
 				case POSPROBES:
-					test[POSPROBES] = 0;
+					test[POSPROBES] = 1;
 					posProbes = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Positive Probes:\t" + to_string(posProbes));
 					break;
 				case NEGPROBES:
-					test[NEGPROBES] = 0;
+					test[NEGPROBES] = 1;
 					negProbes = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Negative Probes:\t" + to_string(negProbes));
 					break;
 				case STAGES:
-					test[STAGES] = 0;
+					test[STAGES] = 1;
 					stages = stoi(read.substr(++equal));
-					cout << "Use Setup:\t" << useSetup << endl;
+					log("Stages:\t\t\t" + to_string(stages));
 					break;
 				default:
-					cout << "Did not found the symbol: " << key << endl;
+					log("Did not found the symbol: " + key);
 					break;
 			}
-			*/
-			cout << read << endl;
+		}
+		for (auto x : test)
+		{
+			if (!x)
+			{
+				cout << "Some setting were lacking program will shut down";
+				exit(-1);
+			}
 		}
 	}
-
+	else
+	{
+		log("Couldn't read test plan :" + string(PATH_TO_TEST_PLANS) + "/" + fileName);
+	}
 	file.close();
 }
+
 void Setuper::changeSetuperParams(bool _useSetup, string _setupName, string _posInfoFileName, string _negInfoFileName, string _classifier, unsigned int _width, unsigned int _height, unsigned int _posProbes, unsigned int _negProbes, unsigned int _stages)
 {
 	useSetup = _useSetup;
@@ -143,26 +155,55 @@ void Setuper::changeSetuperParams(bool _useSetup, string _setupName, string _pos
 	negProbes = _negProbes;
 	stages = _stages;
 }
+
 string Setuper::generateTrainingArgs()
 {
-	return "xd";
+	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbes) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
 }
-string Setuper::generateClassifierArgs()
+
+string Setuper::generateSampleArgs()
 {
-	return "xd";
+	return string(SAMPLE_TOOL) + " -vec " + generateVecFilePath() + " -info " + posInfoFileName + " -num " + to_string(posProbes) + " -w " + to_string(width) + " -h " + to_string(height);
 }
+
+
 string Setuper::generateClassifierPath()
 {
-	return "xd";
+	return string(PATH_TO_TRAINED_CLASSIFIERS) + "/" + setupName;
 }
+
 string Setuper::generateVecFilePath()
 {
-	return "xd";
+	return setupName + ".vec";
 }
+
+string Setuper::generateResultPath()
+{
+	return string(PATH_TO_TEST_RESULT) + "/" + setupName;
+}
+
+void Setuper::createSetupDirectories()
+{
+	int i = 0;
+	fs::path Path(PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName);
+	if (fs::exists(Path))
+	{
+		do
+		{
+			Path = PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName + to_string(++i);
+		} while (fs::exists(Path));
+		setupName = setupName + to_string(i);
+		log("[WARN] following setup name already exist new name: " + setupName);
+	}
+	fs::create_directory(Path);
+	Path = PATH_TO_TEST_RESULT + string("/") + setupName;
+	fs::create_directory(Path);
+}
+
 void Setuper::generateBlankTestPlan()
 {
 	fstream file;
-	file.open("TestPlan", fstream::out);
+	file.open("Images/TestPlans/testplans", fstream::out);
 	
 	file << "#Everything after # will be ignored \n";
 	file << "#variable names are case insensitive\n";
@@ -177,4 +218,47 @@ void Setuper::generateBlankTestPlan()
 	file << "negProbes=100\n";
 	file << "stages=1 #Longer training but better results";
 	file.close();
+}
+
+void Setuper::manualSetup()
+{
+	cout << "If you see [any] you can type anything and hit enter if you see [num] the value have to be non negative integer, if you do not follow instructions, the program will crash" << endl;
+	cout << "Inser name of your setup [any]: ";
+	cin >> setupName;
+	cout << "Insert name of info file containing positive images info (.info added automaticaly) [any]: ";
+	cin >> posInfoFileName;
+	posInfoFileName += ".info";
+	cout << "Insert name of info file containing negative images info (.info added automaticaly) [any]:  ";
+	cin >> negInfoFileName;
+	negInfoFileName += ".info";
+	cout << "Inser the name of classivier [HAAR / LBP]: ";
+	cin >> classifier;
+	cout << "Insert width for your samples [num]: ";
+	cin >> width;
+	cout << "Inster height for your samples [num]: ";
+	cin >> height;
+	cout << "How many probes you want? [num]: ";
+	cin >> posProbes;
+	cout << "stages? [num]: ";
+	cin >> stages;
+}
+
+void Setuper::log(string message)
+{
+	log_file << message << '\n';
+}
+
+void Setuper::openLog()
+{
+	log_file.open("log", ios::in | ios::app);
+	if (!log_file.good())
+	{
+		cout << "Some error appeared with logging service, closing app :(\n";
+		exit(-1);
+	}
+}
+
+void Setuper::closeLog()
+{
+	log_file.close();
 }

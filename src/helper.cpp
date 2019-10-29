@@ -1,9 +1,13 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <filesystem>
 
 #include "helper.h"
+#include "Constants.h"
+#include "Setuper.h"
 
+namespace fs = std::experimental::filesystem;
 using namespace std;
 
 bool parseAnswer(char answer) {
@@ -33,46 +37,45 @@ int parseKey(string key)
 	for_each(key.begin(), key.end(), [](char& c) {
 		c = tolower(c);
 		});
-
 	if (key == "usesetup")
 	{
-		return 0;
+		return USESETUP;
 	}
 	else if (key == "setupname")
 	{
-		return 1;
+		return SETUPNAME;
 	}
 	else if (key == "posinfofilename")
 	{
-		return 2;
+		return POSINFOFILENAME;
 	}
 	else if (key == "neginfofilename")
 	{
-		return 3;
+		return NEGINFOFILENAME;
 	}
 	else if (key == "classifier")
 	{
-		return 4;
+		return CLASSIFIER;
 	}
 	else if (key == "width")
 	{
-		return 5;
+		return WIDTH;
 	}
 	else if (key == "height")
 	{
-		return 6;
+		return HEIGHT;
 	}
 	else if (key == "posprobes")
 	{
-		return 7;
+		return POSPROBES;
 	}
 	else if (key == "negprobes")
 	{
-		return 8;
+		return NEGPROBES;
 	}
 	else if (key == "stages")
 	{
-		return 9;
+		return STAGES;
 	}
 	else
 	{

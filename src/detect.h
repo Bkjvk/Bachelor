@@ -3,9 +3,11 @@
 #define DETECT_H
 #include <string>
 
+#include "Setuper.h"
+
 using namespace std;
 
 void detectAndSave(string, string, string);
-void TestCampaign(string);
+void TestCampaign(Setuper*);
 
 #endif

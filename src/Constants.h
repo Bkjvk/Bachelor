@@ -18,9 +18,10 @@
 #define PATH_TO_POSITIVE_SAMPLES "Images/Positive"
 #define PATH_TO_TEST_SAMPLES "Images/Test"
 #define PATH_TO_TEST_RESULT "Images/TestResult"
+#define PATH_TO_TEST_PLANS "Images/TestPlans"
+#define PATH_TO_DATA ""
 
 #define PATH_TO_TRAINED_CLASSIFIERS "Images/Classifiers"
-#define PATH_TO_RESULT_FILES "Images/Feed"
 
 #define SAMPLE_TOOL "opencv_createsamples.exe"
 #define TRAIN_TOOL "opencv_traincascade.exe"
