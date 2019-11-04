@@ -43,7 +43,7 @@ void Setuper::readNewSetuperParams(string fileName)
 {
 	fstream file;
 	string read;
-	bool test[10] = { false, false, false, false, false, false, false, false, false, false };
+	bool test[11] = { false, false, false, false, false, false, false, false, false, false, false };
 	file.open(string(PATH_TO_TEST_PLANS) + "/" + fileName, fstream::in);
 	if (file.good())
 	{
@@ -121,6 +121,11 @@ void Setuper::readNewSetuperParams(string fileName)
 					stages = stoi(read.substr(++equal));
 					log("Stages:\t\t\t" + to_string(stages));
 					break;
+				case POSPROBESSTAGES:
+					test[POSPROBESSTAGES] = 1;
+					posProbesStages = stoi(read.substr(++equal));
+					log("Positive Samples for Training:\t\t\t" + to_string(posProbesStages));
+					break;
 				default:
 					log("Did not found the symbol: " + key);
 					break;
@@ -158,7 +163,8 @@ void Setuper::changeSetuperParams(bool _useSetup, string _setupName, string _pos
 
 string Setuper::generateTrainingArgs()
 {
-	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbes) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
+	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
+	//return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbes / stages) + " -numNeg " + to_string(negProbes) + " -maxFalseAlarmRate 0.4"+ " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
 }
 
 string Setuper::generateSampleArgs()
@@ -216,6 +222,7 @@ void Setuper::generateBlankTestPlan()
 	file << "height=24\n";
 	file << "posProbes=50\n";
 	file << "negProbes=100\n";
+	file << "posProbesStages=500\n";
 	file << "stages=1 #Longer training but better results";
 	file.close();
 }
@@ -239,6 +246,8 @@ void Setuper::manualSetup()
 	cin >> height;
 	cout << "How many probes you want? [num]: ";
 	cin >> posProbes;
+	cout << "How many positive probes for classifier training? [num]: ";
+	cin >> posProbesStages;
 	cout << "stages? [num]: ";
 	cin >> stages;
 }

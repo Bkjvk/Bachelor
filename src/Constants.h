@@ -12,6 +12,7 @@
 #define POSPROBES 7
 #define NEGPROBES 8
 #define STAGES 9
+#define POSPROBESSTAGES 10
 
 #define PATH_TO_TOPOSITIVE_SAMPLES "Images/ToPositive"
 #define PATH_TO_NEGATIVE_SAMPLES "Images/Negative"
@@ -23,7 +24,7 @@
 
 #define PATH_TO_TRAINED_CLASSIFIERS "Images/Classifiers"
 
-#define SAMPLE_TOOL "opencv_createsamples.exe"
-#define TRAIN_TOOL "opencv_traincascade.exe"
-#define ANNOTATION "opencv_annotation.exe"
+#define SAMPLE_TOOL "opencv_createsamples2.exe"
+#define TRAIN_TOOL "opencv_traincascade2.exe"
+#define ANNOTATION "opencv_annotation2.exe"
 #endif

@@ -29,7 +29,7 @@ void CreateInfoFiles(bool automatic)
 	fstream file;
 	if (automatic)
 	{
-		CreateInfoFile("pos.info", PATH_TO_POSITIVE_SAMPLES, " 1 0 0 99 74");
+		CreateInfoFile("pos.info", PATH_TO_POSITIVE_SAMPLES, " 1 0 0 100 40");
 		CreateInfoFile("neg.info", PATH_TO_NEGATIVE_SAMPLES);
 	}
 	else

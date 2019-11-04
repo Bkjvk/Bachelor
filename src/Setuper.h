@@ -15,6 +15,7 @@ static class Setuper {
 	unsigned int width;
 	unsigned int height;
 	unsigned int posProbes;
+	unsigned int posProbesStages;
 	unsigned int negProbes;
 	unsigned int stages;
 	fstream log_file;

@@ -77,6 +77,10 @@ int parseKey(string key)
 	{
 		return STAGES;
 	}
+	else if (key == "posprobesstages")
+	{
+		return POSPROBESSTAGES;
+	}
 	else
 	{
 		return -1;
