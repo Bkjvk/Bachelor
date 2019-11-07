@@ -25,6 +25,7 @@
     <ClCompile Include="src\detect.cpp" />
     <ClCompile Include="src\helper.cpp" />
     <ClCompile Include="src\Setuper.cpp" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Constants.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="src\detect.h" />
     <ClInclude Include="src\helper.h" />
     <ClInclude Include="src\Setuper.h" />
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

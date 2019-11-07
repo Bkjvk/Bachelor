@@ -139,6 +139,8 @@ void Setuper::readNewSetuperParams(string fileName)
 				exit(-1);
 			}
 		}
+		log("Generate Training args: " + generateTrainingArgs());
+		log("Generate Sample args: " + generateSampleArgs());
 	}
 	else
 	{
@@ -163,13 +165,13 @@ void Setuper::changeSetuperParams(bool _useSetup, string _setupName, string _pos
 
 string Setuper::generateTrainingArgs()
 {
-	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
-	//return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbes / stages) + " -numNeg " + to_string(negProbes) + " -maxFalseAlarmRate 0.4"+ " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
+	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -numStages " + to_string(stages) + " -w " + to_string(width) + " -h " + to_string(height);
+	//return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
 }
 
 string Setuper::generateSampleArgs()
 {
-	return string(SAMPLE_TOOL) + " -vec " + generateVecFilePath() + " -info " + posInfoFileName + " -num " + to_string(posProbes) + " -w " + to_string(width) + " -h " + to_string(height);
+	return string(SAMPLE_TOOL) + " -vec " + generateVecFilePath() + " -info " + posInfoFileName + " -bg neg.info" + " -num " + to_string(posProbes) +" -w " + to_string(width) + " -h " + to_string(height);
 }
 
 
