@@ -10,7 +10,7 @@
 
 using namespace std;
 using namespace cv;
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 
 void detectAndSave(string pathToPicture, Setuper* s, string resultId)
 {
@@ -49,8 +49,8 @@ void detectAndSave(string pathToPicture, Setuper* s, string resultId)
 void TestCampaign(Setuper* s)
 {
 	int counter = 0;
-	fs::path Path(PATH_TO_TEST_SAMPLES);
-	for (const auto& entry : fs::directory_iterator(Path))
+	path Path(PATH_TO_TEST_SAMPLES);
+	for (const auto& entry : directory_iterator(Path))
 	{
 		detectAndSave(Path.string() + ("\\") + entry.path().filename().string(), s ,to_string(counter++));
 	}

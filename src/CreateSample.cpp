@@ -10,14 +10,14 @@
 #include "Setuper.h"
 
 using namespace std;
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 
 void CreateInfoFile(string fileName, string pathToSamples, string additional = "")
 {
 		fstream file;
 		file.open(fileName, ios::out);
-		fs::path PathToImages(pathToSamples);
-		for (const auto& picture : fs::directory_iterator(PathToImages))
+		path PathToImages(pathToSamples);
+		for (const auto& picture : directory_iterator(PathToImages))
 		{
 			file << pathToSamples << "/" << picture.path().filename().string() << additional << "\n";
 		}

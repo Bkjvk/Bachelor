@@ -8,7 +8,7 @@
 #include "helper.h"
 
 using namespace std;
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 
 Setuper::Setuper()
 {
@@ -193,19 +193,19 @@ string Setuper::generateResultPath()
 void Setuper::createSetupDirectories()
 {
 	int i = 0;
-	fs::path Path(PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName);
-	if (fs::exists(Path))
+	path Path(PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName);
+	if (exists(Path))
 	{
 		do
 		{
 			Path = PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName + to_string(++i);
-		} while (fs::exists(Path));
+		} while (exists(Path));
 		setupName = setupName + to_string(i);
 		log("[WARN] following setup name already exist new name: " + setupName);
 	}
-	fs::create_directory(Path);
+	create_directory(Path);
 	Path = PATH_TO_TEST_RESULT + string("/") + setupName;
-	fs::create_directory(Path);
+	create_directory(Path);
 }
 
 void Setuper::generateBlankTestPlan()

@@ -11,7 +11,7 @@
 #include "detect.h"
 
 using namespace std;
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 
 void controller(Setuper* s)
 {
@@ -24,8 +24,8 @@ void controller(Setuper* s)
 		{
 			CreateInfoFiles(true);
 		}
-		fs::path Path(PATH_TO_TEST_PLANS);
-		for (const auto& entry : fs::directory_iterator(Path))
+		path Path(PATH_TO_TEST_PLANS);
+		for (const auto& entry : directory_iterator(Path))
 		{
 			s->log("#### Reading new setup data ####\n");
 			s->readNewSetuperParams(entry.path().filename().string());

@@ -7,7 +7,7 @@
 #include "Constants.h"
 #include "Setuper.h"
 
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 using namespace std;
 
 bool parseAnswer(char answer) {

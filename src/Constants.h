@@ -24,7 +24,7 @@
 
 #define PATH_TO_TRAINED_CLASSIFIERS "Images/Classifiers"
 
-#define SAMPLE_TOOL "opencv_createsamples2.exe"
-#define TRAIN_TOOL "opencv_traincascade2.exe"
-#define ANNOTATION "opencv_annotation2.exe"
+#define SAMPLE_TOOL "opencv_createsamples.exe"
+#define TRAIN_TOOL "opencv_traincascade.exe"
+#define ANNOTATION "opencv_annotation.exe"
 #endif

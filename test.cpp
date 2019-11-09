@@ -6,12 +6,12 @@
 
 using namespace std;
 using namespace cv;
-namespace fs = std::experimental::filesystem;
+using namespace filesystem;
 
 void converter(string src){
-	fs::path Path(src);
+	path Path(src);
 	int counter = 0;
-	for (const auto& entry : fs::directory_iterator(Path))
+	for (const auto& entry : directory_iterator(Path))
 	{
 		Mat image = imread(entry.path().string(), CV_LOAD_IMAGE_COLOR);   // Read the file
 		if (!image.data)                              // Check for invalid input
