@@ -331,6 +331,7 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 
+Images/Classifiers/*
 Images/ToPositive/*
 Images/ToNegative/*
 Images/Feed/*
