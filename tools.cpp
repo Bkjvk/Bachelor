@@ -4,6 +4,8 @@
 #include <iostream>
 #include <filesystem>
 
+#include "tools.h"
+
 using namespace std;
 using namespace cv;
 using namespace filesystem;
@@ -21,4 +23,20 @@ void converter(string src){
 		}
 		imwrite(src + to_string(++counter) + ".jpg", image);
 	}
+}
+
+void histogramEqalizer(string fileName)
+{
+	Mat src = imread(fileName, CV_LOAD_IMAGE_COLOR); 
+	if (!src.data)                             
+	{
+		cout << "Could not open or find the image\n";
+		exit(-1);
+	}
+	cvtColor(src, src, COLOR_BGR2GRAY);
+	Mat dst;
+	equalizeHist(src, dst);
+	imshow("Obraz zrodlowy", src);
+	imshow("equalizeHist", dst);
+	waitKey();
 }

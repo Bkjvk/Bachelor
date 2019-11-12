@@ -6,5 +6,6 @@
 using namespace std;
 
 void converter(string);
+void histogramEqalizer(string);
 
 #endif

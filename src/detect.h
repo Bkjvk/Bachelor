@@ -9,5 +9,6 @@ using namespace std;
 
 void detectAndSave(string, string, string);
 void TestCampaign(Setuper*);
+void singleDetection(string, string);
 
 #endif
