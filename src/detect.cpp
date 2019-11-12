@@ -38,7 +38,7 @@ void detectAndSave(string pathToPicture, Setuper* s, string resultId)
 	for (size_t i = 0; i < object.size(); i++)
 	{
 		Point upperLeftCorner(object[i].x, object[i].y);
-		Point lowerRowCorner(object[i].x + object[i].width - 20, object[i].y + object[i].height - 20);
+		Point lowerRowCorner(object[i].x + object[i].width, object[i].y + object[i].height);
 		rectangle(image, upperLeftCorner, lowerRowCorner,(255, 0, 255), 2);
 	}
 	string toSave = s->generateResultPath() + "/result" + resultId + string(".jpg");
@@ -81,10 +81,11 @@ void singleDetection(string pathToPicture, string pathToClassifier)
 
 	for (size_t i = 0; i < object.size(); i++)
 	{
+		
 		Point upperLeftCorner(object[i].x, object[i].y);
-		Point lowerRowCorner(object[i].x + object[i].width - 20, object[i].y + object[i].height - 20);
-		rectangle(image, upperLeftCorner, lowerRowCorner, (255, 0, 255), 2);
+		Point lowerRowCorner(object[i].x + object[i].width, object[i].y + object[i].height);
+		rectangle(image, upperLeftCorner, lowerRowCorner,(255, 0, 255), 2);
 	}
-	string toSave = pathToClassifier + string("/rezultat.jpg");
+	string toSave = pathToClassifier + string("/rezultat2.jpg");
 	imwrite(toSave, image);
 }
