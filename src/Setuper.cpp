@@ -10,9 +10,28 @@
 using namespace std;
 using namespace filesystem;
 
+Logger::Logger()
+{
+	logFile.open("log", ios::in | ios::app);
+	if (!logFile.good())
+	{
+		cout << "Some error appeared with logging service, closing app :(\n";
+		exit(-1);
+	}
+}
+
+Logger::~Logger()
+{
+	logFile.close();
+}
+
+void Logger::log(string message)
+{
+	logFile << message << '\n';
+}
+
 Setuper::Setuper()
 {
-	openLog();
 	useSetup = false;
 	setupName = "";
 	posInfoFileName = "";
@@ -47,7 +66,7 @@ void Setuper::readNewSetuperParams(string fileName)
 	file.open(string(PATH_TO_TEST_PLANS) + "/" + fileName, fstream::in);
 	if (file.good())
 	{
-		log("print setup: ");
+		logger.log("print setup: ");
 		while (file >> read)
 		{
 			//skip comments
@@ -73,61 +92,61 @@ void Setuper::readNewSetuperParams(string fileName)
 				case USESETUP:
 					test[USESETUP] = 1;
 					useSetup = stoi(read.substr(++equal));
-					log("Use Setup:\t\t" + to_string(useSetup));
+					logger.log("Use Setup:\t\t" + to_string(useSetup));
 					break;
 				case SETUPNAME:
 					test[SETUPNAME] = 1;
 					setupName = read.substr(++equal);
 					createSetupDirectories();
-					log("Setup Name:\t\t" + setupName);
+					logger.log("Setup Name:\t\t" + setupName);
 					break;
 				case POSINFOFILENAME:
 					test[POSINFOFILENAME] = 1;
 					posInfoFileName = read.substr(++equal) + ".info";
-					log("Pos info file name:\t" + posInfoFileName);
+					logger.log("Pos info file name:\t" + posInfoFileName);
 					break;
 				case NEGINFOFILENAME:
 					test[NEGINFOFILENAME] = 1;
 					negInfoFileName = read.substr(++equal) + ".info";
-					log("Neg info file name:\t" + negInfoFileName);
+					logger.log("Neg info file name:\t" + negInfoFileName);
 					break;
 				case CLASSIFIER:
 					test[CLASSIFIER] = 1;
 					classifier = read.substr(++equal);
-					log("Classifier:\t\t" + classifier);
+					logger.log("Classifier:\t\t" + classifier);
 					break;
 				case WIDTH:
 					test[WIDTH] = 1;
 					width = stoi(read.substr(++equal));
-					log("Width:\t\t\t" + to_string(width));
+					logger.log("Width:\t\t\t" + to_string(width));
 					break;
 				case HEIGHT:
 					test[HEIGHT] = 1;
 					height = stoi(read.substr(++equal));
-					log("Height:\t\t\t" + to_string(height));
+					logger.log("Height:\t\t\t" + to_string(height));
 					break;
 				case POSPROBES:
 					test[POSPROBES] = 1;
 					posProbes = stoi(read.substr(++equal));
-					log("Positive Probes:\t" + to_string(posProbes));
+					logger.log("Positive Probes:\t" + to_string(posProbes));
 					break;
 				case NEGPROBES:
 					test[NEGPROBES] = 1;
 					negProbes = stoi(read.substr(++equal));
-					log("Negative Probes:\t" + to_string(negProbes));
+					logger.log("Negative Probes:\t" + to_string(negProbes));
 					break;
 				case STAGES:
 					test[STAGES] = 1;
 					stages = stoi(read.substr(++equal));
-					log("Stages:\t\t\t" + to_string(stages));
+					logger.log("Stages:\t\t\t" + to_string(stages));
 					break;
 				case POSPROBESSTAGES:
 					test[POSPROBESSTAGES] = 1;
 					posProbesStages = stoi(read.substr(++equal));
-					log("Positive Samples for Training:\t\t\t" + to_string(posProbesStages));
+					logger.log("Positive Samples for Training:\t\t\t" + to_string(posProbesStages));
 					break;
 				default:
-					log("Did not found the symbol: " + key);
+					logger.log("Did not found the symbol: " + key);
 					break;
 			}
 		}
@@ -139,12 +158,12 @@ void Setuper::readNewSetuperParams(string fileName)
 				exit(-1);
 			}
 		}
-		log("Generate Training args: " + generateTrainingArgs());
-		log("Generate Sample args: " + generateSampleArgs());
+		logger.log("Generate Training args: " + generateTrainingArgs());
+		logger.log("Generate Sample args: " + generateSampleArgs());
 	}
 	else
 	{
-		log("Couldn't read test plan :" + string(PATH_TO_TEST_PLANS) + "/" + fileName);
+		logger.log("Couldn't read test plan :" + string(PATH_TO_TEST_PLANS) + "/" + fileName);
 	}
 	file.close();
 }
@@ -201,7 +220,7 @@ void Setuper::createSetupDirectories()
 			Path = PATH_TO_TRAINED_CLASSIFIERS + string("/") + setupName + to_string(++i);
 		} while (exists(Path));
 		setupName = setupName + to_string(i);
-		log("[WARN] following setup name already exist new name: " + setupName);
+		logger.log("[WARN] following setup name already exist new name: " + setupName);
 	}
 	create_directory(Path);
 	Path = PATH_TO_TEST_RESULT + string("/") + setupName;
@@ -256,20 +275,14 @@ void Setuper::manualSetup()
 
 void Setuper::log(string message)
 {
-	log_file << message << '\n';
+	logger.log(message);
 }
 
-void Setuper::openLog()
+unsigned int Setuper::getHeight()
 {
-	log_file.open("log", ios::in | ios::app);
-	if (!log_file.good())
-	{
-		cout << "Some error appeared with logging service, closing app :(\n";
-		exit(-1);
-	}
+	return height;
 }
-
-void Setuper::closeLog()
+unsigned int Setuper::getWidth()
 {
-	log_file.close();
+	return width;
 }

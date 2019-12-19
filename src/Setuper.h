@@ -6,6 +6,15 @@
 
 using namespace std;
 
+class Logger {
+private:
+	fstream logFile;
+public:
+	Logger();
+	~Logger();
+	void log(string message);
+};
+
 static class Setuper {
 	bool useSetup;
 	string setupName;
@@ -18,7 +27,7 @@ static class Setuper {
 	unsigned int posProbesStages;
 	unsigned int negProbes;
 	unsigned int stages;
-	fstream log_file;
+	Logger logger;
 public:
 	Setuper();
 	Setuper(bool, string, string, string, string, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
@@ -33,9 +42,9 @@ public:
 	string generateResultPath();
 	void createSetupDirectories();
 	void generateBlankTestPlan();
-	void openLog();
-	void closeLog();
-	void log(string);
+	void log(string message);
+	unsigned int getHeight();
+	unsigned int getWidth();
 }setuper;
 
 #endif

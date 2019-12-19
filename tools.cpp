@@ -40,3 +40,25 @@ void histogramEqalizer(string fileName)
 	imshow("equalizeHist", dst);
 	waitKey();
 }
+
+void gradient(string fileName)
+{
+	Mat img = imread(fileName);
+	if (!img.data)
+	{
+		cout << "Could not open or find the image\n";
+		exit(-1);
+	}
+	img.convertTo(img, CV_32F, 1 / 255.0);
+
+	// Calculate gradients gx, gy
+	Mat gx, gy;
+	Sobel(img, gx, CV_32F, 1, 0, 1);
+	Sobel(img, gy, CV_32F, 0, 1, 1);
+
+	Mat mag, angle;
+	cartToPolar(gx, gy, mag, angle, 1);
+
+	cout << "Mag = " << endl << " " << mag << endl << endl;
+	cout << "angle = " << endl << " " << angle << endl << endl;
+}

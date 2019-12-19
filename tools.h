@@ -7,5 +7,6 @@ using namespace std;
 
 void converter(string);
 void histogramEqalizer(string);
+void gradient(string);
 
 #endif

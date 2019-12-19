@@ -13,11 +13,12 @@ using namespace std;
 
 int main()
 {
-	//controller(&setuper);
+	controller(&setuper);
 	//converter(PATH_TO_TEST_SAMPLES);
 	//converter(PATH_TO_NEGATIVE_SAMPLES);
 	//histogramEqalizer("Images/Other/histogram.jpg");
-	singleDetection("Images/Positive/Positive8.jpg", "kaskada");
-	getchar();
+	//singleDetection("Images/Test/Test8.jpg", "kaskada");
+	//gradient("pixel.jpg");
+	//getchar();
 	return 0;
 }
