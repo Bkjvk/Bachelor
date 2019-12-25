@@ -25,6 +25,7 @@
     <ClCompile Include="src\detect.cpp" />
     <ClCompile Include="src\helper.cpp" />
     <ClCompile Include="src\Setuper.cpp" />
+    <ClCompile Include="summarizer.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ClInclude Include="src\detect.h" />
     <ClInclude Include="src\helper.h" />
     <ClInclude Include="src\Setuper.h" />
+    <ClInclude Include="Summarizer.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

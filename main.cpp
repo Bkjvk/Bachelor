@@ -8,17 +8,19 @@
 #include "src/helper.h"
 #include "src/Controller.h"
 #include "tools.h"
+#include "Summarizer.h"
 
 using namespace std;
 
 int main()
 {
-	controller(&setuper);
+	//controller(&setuper);
 	//converter(PATH_TO_TEST_SAMPLES);
 	//converter(PATH_TO_NEGATIVE_SAMPLES);
 	//histogramEqalizer("Images/Other/histogram.jpg");
 	//singleDetection("Images/Test/Test8.jpg", "kaskada");
 	//gradient("pixel.jpg");
 	//getchar();
+	Summarizer();
 	return 0;
 }
