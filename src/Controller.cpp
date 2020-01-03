@@ -28,14 +28,30 @@ string transformTime(double temp)
 void controller(Setuper* s)
 {
 	vector<DetectorParams> detectorParams;
+	detectorParams.push_back(DetectorParams(1.04, 3, cv::Size(50, 20), cv::Size(100, 40)));
 	detectorParams.push_back(DetectorParams(1.05, 3, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.07, 3, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.1, 3, cv::Size(50, 20), cv::Size(100, 40)));
+	
+	detectorParams.push_back(DetectorParams(1.04, 4, cv::Size(50, 20), cv::Size(100, 40)));
 	detectorParams.push_back(DetectorParams(1.05, 4, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.07, 4, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.1, 4, cv::Size(50, 20), cv::Size(100, 40)));
+
+	detectorParams.push_back(DetectorParams(1.04, 5, cv::Size(50, 20), cv::Size(100, 40)));
 	detectorParams.push_back(DetectorParams(1.05, 5, cv::Size(50, 20), cv::Size(100, 40)));
-	detectorParams.push_back(DetectorParams(1.05, 6, cv::Size(50, 20), cv::Size(100, 40)));
-	detectorParams.push_back(DetectorParams(1.10, 5, cv::Size(50, 20), cv::Size(100, 40)));
 	detectorParams.push_back(DetectorParams(1.07, 5, cv::Size(50, 20), cv::Size(100, 40)));
-	detectorParams.push_back(DetectorParams(1.03, 5, cv::Size(50, 20), cv::Size(100, 40)));
-	detectorParams.push_back(DetectorParams(1.03, 15, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.1, 5, cv::Size(50, 20), cv::Size(100, 40)));
+
+	detectorParams.push_back(DetectorParams(1.04, 6, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.05, 6, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.07, 6, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.1, 6, cv::Size(50, 20), cv::Size(100, 40)));
+
+	detectorParams.push_back(DetectorParams(1.04, 5, cv::Size(50, 20)));
+	detectorParams.push_back(DetectorParams(1.05, 10, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.07, 15, cv::Size(50, 20), cv::Size(100, 40)));
+	detectorParams.push_back(DetectorParams(1.1, 20, cv::Size(50, 20), cv::Size(100, 40)));
 
 	string message = "Do you want to recreate info files? ";
 	bool recreateInfoFiles = askUserForAcceptance(message);

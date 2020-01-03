@@ -184,7 +184,7 @@ void Setuper::changeSetuperParams(bool _useSetup, string _setupName, string _pos
 
 string Setuper::generateTrainingArgs()
 {
-	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -numStages " + to_string(stages) + " -w " + to_string(width) + " -h " + to_string(height);
+	return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -numStages " + to_string(stages) + " -featureType " + classifier  + " -w " + to_string(width) + " -h " + to_string(height);
 	//return TRAIN_TOOL + string(" -data ") + generateClassifierPath() + " -vec " + generateVecFilePath() + " -bg neg.info -numPos " + to_string(posProbesStages) + " -numNeg " + to_string(negProbes) + " -w " + to_string(width) + " -h " + to_string(height) + " -numStages " + to_string(stages);
 }
 

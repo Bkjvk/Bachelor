@@ -23,17 +23,21 @@ struct Summarize {
 void showImage(string path)
 {
 	Mat src = imread(path, CV_LOAD_IMAGE_COLOR);
+	namedWindow("Image",WINDOW_AUTOSIZE);
 	imshow("Image", src);
+	moveWindow("Image", 20, 20);
 	waitKey(1);
 }
 
 void showData(string pos, string fpos, string neg)
 {
 	Mat text = Mat::zeros(Size(600, 160), CV_64FC1);
+	namedWindow("description", WINDOW_AUTOSIZE);
 	putText(text, "positive" + pos, Point(0, 40), CV_FONT_NORMAL, 1, Scalar(255, 255));
 	putText(text, "false positive" + fpos, Point(0, 80), CV_FONT_NORMAL, 1, Scalar(255, 255));
 	putText(text, "negative" + neg, Point(0, 120), CV_FONT_NORMAL, 1, Scalar(255, 255));
 	imshow("description", text);
+	moveWindow("description", 500, 20);
 	waitKey(1);
 }
 
@@ -91,39 +95,39 @@ void judgePicture(string pathToPicture, Summarize *s)
 	}
 }
 
-void logToFile(Summarize* s, string path)
+void initLogFile(fstream* logFile)
 {
-	fstream logFile;
-	logFile.open("log", ios::in | ios::app);
-	if (!logFile.good())
+	logFile->open("log", ios::in | ios::app);
+	if (!logFile->good())
 	{
 		cout << "Some error appeared with logging service (summarizer), closing app :(\n";
 		exit(-1);
 	}
-
-	logFile << path << "\n\tPositive: " << s->positive << "\n\tNegative: " << s->negative << "\n\tFalse positive: " << s->falsePositive << "\n";
-
-	logFile.close();
 }
 
 void Summarizer()
 {
+	fstream logFile;
+	initLogFile(&logFile);
 	path pathToResults;
 	cout << "Insert path to results: ";
 	cin >> pathToResults;
 
 	cout << "Keybinds\n\tz - add\t\ta - remove from positive count\n\tx - add\t\ts - remove from false positive counter\n\tc - add\t\td - remove from negative\n\tn - next picture\n";
+	logFile << "Catalog: " << pathToResults.string() << endl;
 
-	for (const auto& entry : directory_iterator(pathToResults))
-	{
-		cout << "Entering catalog: " << entry.path().filename().string() << endl;
+	//for (const auto& entry : directory_iterator(pathToResults))
+	//{
+		//cout << "Entering catalog: " << entry.path().filename().string() << endl;
 		Summarize s;
-		path subResults = path(pathToResults.string() + "\\" + entry.path().filename().string());
-		for (const auto& entry : directory_iterator(subResults))
+		//path subResults = path(pathToResults.string() + "\\" + entry.path().filename().string());
+		///for (const auto& entry : directory_iterator(subResults))
+		for (const auto& entry : directory_iterator(pathToResults))
 		{
-			judgePicture(subResults.string() + "\\" + entry.path().filename().string(),&s);
+			judgePicture(pathToResults.string() + "\\" + entry.path().filename().string(),&s);
 		}
-		cout << "Positives: " << to_string(s.positive) << "\nNegatives: " << to_string(s.negative) << "\nFalse Negatives: " << to_string(s.falsePositive) << endl;
-		logToFile(&s, subResults.string());
-	}
+		//cout << "Positives: " << to_string(s.positive) << "\nNegatives: " << to_string(s.negative) << "\nFalse Negatives: " << to_string(s.falsePositive) << endl;
+		logFile << pathToResults.string() << "\n\tPositive: " << s.positive << "\n\tNegative: " << s.negative << "\n\tFalse positive: " << s.falsePositive << "\n";
+	//}
+	logFile.close();
 }

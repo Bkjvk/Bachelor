@@ -1,13 +1,13 @@
 #Everything after # will be ignored 
 #variable names are case insensitive
-setupName=name
+setupName=LBP25x10-500-4000
 useSetup=0 #1 - true, 0 - false
 posInfoFileName=pos #.info will be added in the end automatically
 negInfoFileName=neg #.info will be added in the end automatically
-classifier=HAAR #or LBP
-width=36
-height=24
-posProbes=50
-negProbes=100
+classifier=LBP
+width=25
+height=10
+posProbes=550
 posProbesStages=500
-stages=1 #Longer training but better results
+negProbes=4000
+stages=8 #the bigger number longer training but better results
